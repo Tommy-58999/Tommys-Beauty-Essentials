@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Essentials | Tommy's Beauty Essentials</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">
+</head>
+
+<body>
+
+<header>
+    <h1>Tommy's Beauty Essentials</h1>
+    <div class="search-box">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        onkeyup="searchProducts()">
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="lip-products.html">Lip Products</a>
+        <a href="shades.html">Shades</a>
+        <a href="skincare.html">Glow Essentials</a>
+        <a href="nails.html">Press-On Nails</a>
+        <a href="accessories.html">Lifestyle</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
+</nav>
+</header>
+
+<section class="collection">
+
+    <h2>Lifestyle Essentials</h2>
+
+    <p>Elegant accessories, everyday essentials and stylish tech designed to complement your lifestyle.</p>
+
+    <h3>Jewellery</h3>
+    <div class="sort-box">
+
+<label for="sort">Sort by:</label>
+
+<select id="sort" onchange="sortProducts()">
+
+<option value="default">Featured</option>
+
+<option value="low-high">Price: Low to High</option>
+
+<option value="high-low">Price: High to Low</option>
+
+<option value="a-z">A - Z</option>
+
+<option value="z-a">Z - A</option>
+
+</select>
+
+</div>
+
+    <div class="product-container">
+      <div class="product-card">
+
+    <img src="images/customized-bracelets.jpeg" alt="Customized Bracelet">
+
+    <h3>Customized Bracelet</h3>
+
+    <p class="price">₦5,000</p>
+
+    <p class="product-description">
+        Personalised bracelets available in different fonts, making every piece uniquely yours.
+    </p>
+
+    <button onclick="addToCart('Customized Bracelet', 5000)">Add to Cart</button>
+
+</div>
+  <div class="product-card">
+
+    <img src="images/customized-necklaces.jpeg" alt="Customized Necklace">
+
+    <h3>Customized Necklace</h3>
+
+    <p class="price">₦6,500</p>
+
+    <p class="product-description">
+        Elegant personalised necklaces available in a variety of font styles for a timeless look.
+    </p>
+
+    <button onclick="addToCart('Customized Necklace', 6500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/jean-chain.jpeg" alt="Jean Chain">
+
+    <h3>Jean Chain</h3>
+
+    <p class="price">₦4,000</p>
+
+    <p class="product-description">
+        A stylish jean chain that adds a bold finishing touch to your everyday outfit.
+    </p>
+
+    <button onclick="addToCart('Jean Chain', 4000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/fake-piercings.jpeg" alt="Fake Piercings">
+
+    <h3>Fake Piercings</h3>
+
+    <p class="price">₦1,000</p>
+
+    <p class="product-description">
+        A set of 165 reusable fake piercings available in gold and silver for effortless styling.
+    </p>
+
+    <button onclick="addToCart('Fake Piercings', 1000)">Add to Cart</button>
+
+</div>
+    </div>
+    <h3>Hair Accessories</h3>
+
+<div class="product-container">
+    <div class="product-card">
+
+    <img src="images/floral-clip.jpeg" alt="Floral Clip">
+
+    <h3>Floral Clip</h3>
+
+    <p class="price">₦1,200</p>
+
+    <p class="product-description">
+        A beautiful floral hair clip that adds a soft, elegant touch to any hairstyle.
+    </p>
+
+    <button onclick="addToCart('Floral Clip', 1200)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/hair-bands.jpeg" alt="Hair Bands">
+
+    <h3>Hair Bands</h3>
+
+    <p class="price">₦50 each</p>
+
+    <p class="product-description">
+        Everyday hair bands that provide a comfortable hold without damaging your hair.
+    </p>
+
+ <button onclick="addToCart('Hair Bands', 50)">Add to Cart</button>   
+
+</div>
+<div class="product-card">
+
+    <img src="images/headbands.jpeg" alt="Headbands">
+
+    <h3>Headbands</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        Stylish headbands designed to complete your look with comfort and elegance.
+    </p>
+
+    <button onclick="addToCart('Headbands', 700)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/mini-scrunchies.jpeg" alt="Mini Scrunchies">
+
+    <h3>Mini Scrunchies</h3>
+
+    <p class="price">₦350</p>
+
+    <p class="product-description">
+        Soft mini scrunchies that are perfect for everyday hairstyles and gentle on your hair.
+    </p>
+
+    <button onclick="addToCart('Mini Scrunchies', 350)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/medium-size-scrunchies.jpeg" alt="Medium Scrunchies">
+
+    <h3>Medium Scrunchies</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        Medium-sized scrunchies that combine comfort, style and a secure hold.
+    </p>
+
+    <button onclick="addToCart('Medium Scrunchies', 500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/big-scrunchies.jpeg" alt="Large Scrunchies">
+
+    <h3>Large Scrunchies</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        Oversized scrunchies that add volume, elegance and a fashionable finish to your hairstyle.
+    </p>
+
+    <button onclick="addToCart('Large Scrunchies', 700)">Add to Cart</button>
+
+</div>
+</div>
+<h3>Tech & Lifestyle</h3>
+
+<div class="product-container">
+    <div class="product-card">
+
+    <img src="images/wireless-earbuds.jpeg" alt="Wireless Earbuds">
+
+    <h3>Wireless Earbuds</h3>
+
+    <p class="price">₦5,000</p>
+
+    <p class="product-description">
+        Enjoy clear sound and wireless freedom with these sleek everyday earbuds.
+    </p>
+
+    <button onclick="addToCart('Wireless Earbuds', 5000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/gaming-stereo-earbud.jpeg" alt="Gaming Stereo Earbuds">
+
+    <h3>Gaming Stereo Earbuds</h3>
+
+    <p class="price">₦5,500</p>
+
+    <p class="product-description">
+        High-quality stereo earbuds designed for immersive gaming and entertainment.
+    </p>
+
+    <button onclick="addToCart('Gaming Stereo Earbuds', 5500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/gaming-headset.jpeg" alt="Gaming Headset">
+
+    <h3>Gaming Headset</h3>
+
+    <p class="price">₦8,500</p>
+
+    <p class="product-description">
+        A premium gaming headset with wireless earbuds, magnetic charging, power bank functionality and a stylish design.
+    </p>
+
+    <button onclick="addToCart('Gaming Headset', 8500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/three-in-one-earbud.jpeg" alt="3-in-1 Smart Earbuds">
+
+    <h3>3-in-1 Smart Earbuds</h3>
+
+    <p class="price">₦8,000</p>
+
+    <p class="product-description">
+        A multifunctional device featuring wireless earbuds, a built-in power bank and a convenient mirror.
+    </p>
+
+    <button onclick="addToCart('3-in-1 Smart Earbuds', 8000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/ear-buds.jpeg" alt="Smart Display Earbuds">
+
+    <h3>Smart Display Earbuds</h3>
+
+    <p class="price">₦7,500</p>
+
+    <p class="product-description">
+        Wireless earbuds with a smart display, built-in mirror and power bank for convenience on the go.
+    </p>
+
+    <button onclick="addToCart('Smart Display Earbuds', 7500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/one-color-usb-lamp.jpeg" alt="One-Colour USB Sunset Lamp">
+
+    <h3>One-Colour USB Sunset Lamp</h3>
+
+    <p class="price">₦3,000</p>
+
+    <p class="product-description">
+        A USB-powered sunset lamp that creates a warm, relaxing atmosphere in any space.
+    </p>
+
+    <button onclick="addToCart('One-Colour USB Sunset Lamp', 3000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/seven-colors-usb-lamp.jpeg" alt="Seven-Colour USB Sunset Lamp">
+
+    <h3>Seven-Colour USB Sunset Lamp</h3>
+
+    <p class="price">₦4,000</p>
+
+    <p class="product-description">
+        Transform your room with seven vibrant lighting colours for the perfect ambience.
+    </p>
+
+    <button onclick="addToCart('Seven-Colour USB Sunset Lamp', 4000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/phone-suction.jpeg" alt="Phone Suction Mount">
+
+    <h3>Phone Suction Mount</h3>
+
+    <p class="price">₦800</p>
+
+    <p class="product-description">
+        A handy phone suction mount that securely holds your device for hands-free convenience.
+    </p>
+
+    <button onclick="addToCart('Phone Suction Mount', 800)">Add to Cart</button>
+
+</div>
+</div>
+
+</section>
+<script src="script.js"></script>
+</body>
+</html>

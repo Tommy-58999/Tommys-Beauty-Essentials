@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Tommy's Beauty Essentials</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">
+</head>
+
+<body>
+
+<header>
+
+    <h1>Tommy's Beauty Essentials</h1>
+    
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="lip-products.html">Lip Products</a>
+        <a href="shades.html">Shades</a>
+        <a href="skincare.html">Glow Essentials</a>
+        <a href="nails.html">Press-On Nails</a>
+        <a href="accessories.html">Lifestyle</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
+    </nav>
+
+</header>
+
+<section class="collection">
+
+    <h2>Checkout</h2>
+
+    <p>Please fill in your details below.</p>
+
+<form class="checkout-form" onsubmit="placeOrder(event)"></form>
+
+        <input type="text" placeholder="Full Name" required>
+
+        <input type="email" placeholder="Email Address" required>
+
+        <input type="tel" placeholder="Phone Number" required>
+
+        <textarea placeholder="Delivery Address" rows="4" required></textarea>
+
+        <textarea placeholder="Order Notes (Optional)" rows="3"></textarea>
+
+        <h3>Payment Details</h3>
+
+        <p><strong>Bank:</strong> Opay</p>
+
+        <p><strong>Account Name:</strong> Okuneye Oluwatofunmi</p>
+
+        <p><strong>Account Number:</strong> 7046308160</p>
+
+        <button type="submit" class="checkout-btn">
+            Place Order
+        </button>
+
+    </form>
+
+</section>
+
+<script src="scripts.js"></script>
+
+</body>
+</html>

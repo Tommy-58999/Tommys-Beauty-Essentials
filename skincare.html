@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Essentials | Tommy's Beauty Essentials</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">
+</head>
+
+<body>
+
+<header>
+    <h1>Tommy's Beauty Essentials</h1>
+    <div class="search-box">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        onkeyup="searchProducts()">
+</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="lip-products.html">Lip Products</a>
+        <a href="shades.html">Shades</a>
+        <a href="skincare.html">Glow Essentials</a>
+        <a href="nails.html">Press-On Nails</a>
+        <a href="accessories.html">Lifestyle</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
+</nav>
+    </nav>
+</header>
+
+<section class="collection">
+
+    <h2>Glow Essentials</h2>
+
+    <p>Everything you need for healthy, glowing skin and everyday self-care.</p>
+
+    <div class="product-container">
+        <div class="product-card">
+
+    <img src="images/3in1-face-sheet-mask.jpeg" alt="3-in-1 Face Sheet">
+
+    <h3>3-in-1 Face Sheet</h3>
+
+    <p class="price">₦800</p>
+
+    <p class="product-description">
+        A refreshing 3-in-1 face sheet designed to cleanse, nourish and brighten your skin.
+    </p>
+
+    <button onclick="addToCart('3-in-1 Face Sheet', 800)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/face-sheet-masks.jpeg" alt="Face Sheet Mask">
+
+    <h3>Face Sheet Mask</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        A hydrating sheet mask that leaves your skin feeling soft, refreshed and glowing.
+    </p>
+
+    <button onclick="addToCart('Face Sheet Mask', 500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/eye-mask.jpeg" alt="Eye Mask">
+
+    <h3>Eye Mask</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        Refresh tired eyes with a soothing eye mask that helps you look well-rested.
+    </p>
+
+    <button onclick="addToCart('Eye Mask', 500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/compressed-face-sponge.jpeg" alt="Compressed Face Sponge">
+
+    <h3>Compressed Face Sponge</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        A soft, reusable cleansing sponge that expands with water for a gentle and effective skincare routine.
+    </p>
+
+    <button onclick="addToCart('Compressed Face Sponge', 500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/sun-screen.jpeg" alt="Sunscreen">
+
+    <h3>Sunscreen</h3>
+
+    <p class="price">₦4,500</p>
+
+    <p class="product-description">
+        Protect your skin every day with broad-spectrum sun protection for a healthy, even complexion.
+    </p>
+
+    <button onclick="addToCart('Sunscreen', 4500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/pimple-patch.jpeg" alt="Pimple Patch">
+
+    <h3>Pimple Patch</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        A discreet spot treatment that helps protect blemishes while supporting clearer-looking skin.
+    </p>
+
+   <button onclick="addToCart('Pimple Patch', 700)">Add to Cart</button> 
+
+</div>
+<div class="product-card">
+
+    <img src="images/hydrocolloid-pimple-patch.jpeg" alt="Hydrocolloid Pimple Patch">
+
+    <h3>Hydrocolloid Pimple Patch</h3>
+
+    <p class="price">₦850</p>
+
+    <p class="product-description">
+        Advanced hydrocolloid patches designed to help protect blemishes and support your skincare routine.
+    </p>
+
+    <button onclick="addToCart('Hydrocolloid Pimple Patch', 850)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/face-serums.jpeg" alt="5-in-1 Face Serum">
+
+    <h3>5-in-1 Face Serum</h3>
+
+    <p class="price">₦5,000</p>
+
+    <p class="product-description">
+        Enriched with Hyaluronic Acid, Collagen, Vitamin C, Vitamin E and Niacinamide to hydrate, nourish and leave your skin looking healthy and radiant.
+    </p>
+
+    <button onclick="addToCart('5-in-1 Face Serum', 5000)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/hand-cream.jpeg" alt="Hand Cream">
+
+    <h3>Hand Cream</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        Keep your hands soft, smooth and deeply moisturised with this nourishing hand cream.
+    </p>
+
+    <button onclick="addToCart('Hand Cream', 700)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/face-razor.jpeg" alt="Face Razor">
+
+    <h3>Face Razor</h3>
+
+    <p class="price">₦800</p>
+
+    <p class="product-description">
+        A gentle facial razor for precise eyebrow shaping and smooth, peach-fuzz-free skin.
+    </p>
+
+    <button onclick="addToCart('Face Razor', 800)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/tongue-scraper.jpeg" alt="Tongue Scraper">
+
+    <h3>Tongue Scraper</h3>
+
+    <p class="price">₦800</p>
+
+    <p class="product-description">
+        An easy addition to your daily routine for a cleaner mouth and fresher breath.
+    </p>
+
+    <button onclick="addToCart('Tongue Scraper', 800)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/wet-wipes.jpeg" alt="Wet Wipes">
+
+    <h3>Wet Wipes</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        Soft, refreshing wipes for quick cleansing at home or on the go.
+    </p>
+
+    <button onclick="addToCart('Wet Wipes', 500)">Add to Cart</button>
+
+</div>
+</div>
+
+</section>
+<script src="script.js"></script>
+</body>
+</html>

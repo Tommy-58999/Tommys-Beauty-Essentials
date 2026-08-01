@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plush Pout Lip Collection | Tommy's Beauty Essentials</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">  
+</head>
+
+<body>
+
+<header>
+    <h1>Tommy's Beauty Essentials</h1>
+    <div class="search-box">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        onkeyup="searchProducts()">
+</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="lip-products.html">Lip Products</a>
+        <a href="shades.html">Shades</a>
+        <a href="skincare.html">Glow Essentials</a>
+        <a href="nails.html">Press-On Nails</a>
+        <a href="accessories.html">Lifestyle</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
+</nav>
+    </nav>
+</header>
+
+<section class="collection">
+
+    <h2>Plush Pout Lip Gloss Collection</h2>
+
+    <p>Glossy. Glamorous. Unapologetic.</p>
+
+    <div class="product-container">
+        <div class="product-card">
+
+    <img src="images/barenude.jpeg" alt="Bare Nude">
+
+    <h3>Bare Nude</h3>
+
+    <p class="price">₦2,500</p>
+
+    <p class="product-description">
+        A soft nude gloss that gives your lips a smooth, glossy finish for every occasion.
+    </p>
+
+    <button onclick="addToCart('Bare Nude', 2500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/blush-babe.jpeg" alt="Blush Babe">
+
+    <h3>Blush Babe</h3>
+
+    <p class="price">₦2,500</p>
+
+    <p class="product-description">
+        A gorgeous pink gloss that leaves your lips looking fresh, glossy and glamorous.
+    </p>
+
+    <button onclick="addToCart('Blush Babe', 2500)">Add to Cart</button>
+
+</div>
+
+<div class="product-card">
+
+    <img src="images/chocoluxe.jpeg" alt="Chocoluxe">
+
+    <h3>Chocoluxe</h3>
+
+    <p class="price">₦2,500</p>
+
+    <p class="product-description">
+        A rich chocolate-inspired gloss that delivers a smooth, glossy finish with a touch of luxury.
+    </p>
+
+    <button onclick="addToCart('Chocoluxe', 2500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/clear-crystal-gloss.jpeg" alt="Clear Crystal Gloss">
+
+    <h3>Clear Crystal Gloss</h3>
+
+    <p class="price">₦2,500</p>
+
+    <p class="product-description">
+        Crystal-clear shine that enhances your natural beauty with a glass-like finish.
+    </p>
+
+    <button onclick="addToCart('Clear Crystal Gloss', 2500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/ice-cream-gloss.jpeg" alt="Ice Cream Gloss">
+
+    <h3>Ice Cream Gloss</h3>
+
+    <p class="price">₦1,000</p>
+
+    <p class="product-description">
+        A creamy, high-shine gloss that gives your lips a sweet, glossy finish you'll love.
+    </p>
+
+   <button onclick="addToCart('Ice Cream Gloss', 1000)">Add to Cart</button> 
+
+</div>
+<div class="product-card">
+
+    <img src="images/magic-glow.jpeg" alt="Magic Glow">
+
+    <h3>Magic Glow</h3>
+
+    <p class="price">₦2,500</p>
+
+    <p class="product-description">
+        A radiant gloss that gives your lips a luminous shine and an effortlessly glamorous finish.
+    </p>
+
+    <button onclick="addToCart('Magic Glow', 2500)">Add to Cart</button>
+
+</div>
+</div>
+
+</section>
+<section class="collection">
+
+    <h2>Lip Essentials</h2>
+
+    <p>Everything you need for soft, smooth and healthy-looking lips.</p>
+
+    <div class="product-container">
+        <div class="product-card">
+
+    <img src="images/lip-mask.jpeg" alt="Lip Mask">
+
+    <h3>Lip Mask</h3>
+
+    <p class="price">₦500</p>
+
+    <p class="product-description">
+        A nourishing lip mask that helps keep your lips soft, smooth and refreshed.
+    </p>
+
+    <button onclick="addToCart('Lip Mask', 500)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/lip-liner.jpeg" alt="Lip Liner">
+
+    <h3>Lip Liner</h3>
+
+    <p class="price">₦600</p>
+
+    <p class="product-description">
+        Available in <strong>Black, Brown and Wine</strong> to define and enhance your lip look.
+    </p>
+
+    <button onclick="addToCart('Lip Liner', 600)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/lip-exfoliator.jpeg" alt="Lip Exfoliator">
+
+    <h3>Lip Exfoliator</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        Gently removes dry skin, leaving your lips smooth, soft and ready for your favourite gloss.
+    </p>
+
+    <button onclick="addToCart('Lip Exfoliator', 700)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/lip-scrub.jpeg" alt="Lip Scrub">
+
+    <h3>Lip Scrub</h3>
+
+    <p class="price">₦1,200</p>
+
+    <p class="product-description">
+        A nourishing scrub that buffs away dry skin for softer, healthier-looking lips.
+    </p>
+
+    <button onclick="addToCart('Lip Scrub', 1200)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/admd-lip-balm.jpeg" alt="ADMD Lip Balm">
+
+    <h3>ADMD Lip Balm</h3>
+
+    <p class="price">₦700</p>
+
+    <p class="product-description">
+        Everyday hydration that keeps your lips moisturised, smooth and protected.
+    </p>
+
+    <button onclick="addToCart('ADMD Lip Balm', 700)">Add to Cart</button>
+
+</div>
+<div class="product-card">
+
+    <img src="images/vaseline-lip-balm.jpeg" alt="Vaseline Lip Balm">
+
+    <h3>Vaseline Lip Balm</h3>
+
+    <p class="price">₦1,000</p>
+
+    <p class="product-description">
+        A trusted lip balm that locks in moisture and helps keep lips soft throughout the day.
+    </p>
+
+    <button onclick="addToCart('Vaseline Lip Balm', 1000)">Add to Cart</button>
+
+</div>
+</div>
+
+</section>
+<script src="script.js"></script>
+</body>
+</html>
