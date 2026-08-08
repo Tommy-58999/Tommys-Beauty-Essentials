@@ -1,4 +1,4 @@
-  /* ===========================
+/* ===========================
    GLOBAL STYLES
 =========================== */
 
@@ -644,4 +644,45 @@ footer{
     border:2px solid #d63384;
     border-radius:8px;
     font-size:16px;
+}
+/* ===========================
+   MOBILE MENU
+=========================== */
+
+.mobile-menu-btn{
+    display:none;
+    background:#d63384;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:none;
+}
+
+@media (max-width:768px){
+
+    .mobile-menu-btn{
+        display:inline-block;
+        margin:5px auto 10px;
+    }
+
+    nav{
+        display:none;
+        flex-direction:column;
+        gap:5px;
+        width:100%;
+        margin-top:10px;
+    }
+
+    nav.mobile-menu-open{
+        display:flex;
+    }
+
+    nav a{
+        padding:10px;
+        width:100%;
+    }
+
 }

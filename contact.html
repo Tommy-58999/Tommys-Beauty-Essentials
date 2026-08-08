@@ -15,8 +15,9 @@
 
 <h1>Tommy's Beauty Essentials</h1>
 
+   <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
 
-<nav>
+<nav id="mainNav">
     <a href="index.html">Home</a>
     <a href="lip-products.html">Lip Products</a>
     <a href="shades.html">Shades</a>
@@ -67,15 +68,36 @@
 
 <section class="checkout-form">
 
-<h3>Send us a Message</h3>
+    <h3>Send us a Message</h3>
 
-<input type="text" placeholder="Your Name">
+    <form onsubmit="sendContactMessage(event)">
 
-<input type="email" placeholder="Email Address">
+        <input
+            type="text"
+            id="contactName"
+            placeholder="Your Name"
+            required
+        >
 
-<textarea rows="6" placeholder="Your Message"></textarea>
+        <input
+            type="email"
+            id="contactEmail"
+            placeholder="Email Address"
+            required
+        >
 
-<button>Send Message</button>
+        <textarea
+            id="contactMessage"
+            rows="6"
+            placeholder="Your Message"
+            required
+        ></textarea>
+
+        <button type="submit">
+            Send Message
+        </button>
+
+    </form>
 
 </section>
 

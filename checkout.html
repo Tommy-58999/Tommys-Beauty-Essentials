@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Checkout | Tommy's Beauty Essentials</title>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">
 </head>
@@ -13,9 +15,10 @@
 <header>
 
     <h1>Tommy's Beauty Essentials</h1>
-    
+   <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
 
-    <nav>
+
+    <nav id="mainNav">
         <a href="index.html">Home</a>
         <a href="lip-products.html">Lip Products</a>
         <a href="shades.html">Shades</a>
@@ -34,17 +37,36 @@
 
     <p>Please fill in your details below.</p>
 
-<form class="checkout-form" onsubmit="placeOrder(event)"></form>
+    <form class="checkout-form" onsubmit="placeOrder(event)">
 
-        <input type="text" placeholder="Full Name" required>
+        <input
+            type="text"
+            placeholder="Full Name"
+            required
+        >
 
-        <input type="email" placeholder="Email Address" required>
+        <input
+            type="email"
+            placeholder="Email Address"
+            required
+        >
 
-        <input type="tel" placeholder="Phone Number" required>
+        <input
+            type="tel"
+            placeholder="Phone Number"
+            required
+        >
 
-        <textarea placeholder="Delivery Address" rows="4" required></textarea>
+        <textarea
+            placeholder="Delivery Address"
+            rows="4"
+            required
+        ></textarea>
 
-        <textarea placeholder="Order Notes (Optional)" rows="3"></textarea>
+        <textarea
+            placeholder="Order Notes (Optional)"
+            rows="3"
+        ></textarea>
 
         <h3>Payment Details</h3>
 
@@ -62,7 +84,7 @@
 
 </section>
 
-<script src="scripts.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

@@ -169,12 +169,26 @@ function placeOrder(event) {
 
     event.preventDefault();
 
+    // Make sure there are products in the cart
+    if (cart.length === 0) {
+
+        alert("Your cart is empty. Please add a product before placing an order.");
+
+        window.location.href = "cart.html";
+
+        return;
+    }
+
     const name = document.querySelector('input[type="text"]').value;
     const email = document.querySelector('input[type="email"]').value;
     const phone = document.querySelector('input[type="tel"]').value;
-    const address = document.querySelector('textarea').value;
 
-    let message = `🛍️ NEW ORDER
+    const textareas = document.querySelectorAll("textarea");
+
+    const address = textareas[0].value;
+    const notes = textareas[1] ? textareas[1].value : "";
+
+    let message = `🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
 
 Name: ${name}
 
@@ -182,12 +196,15 @@ Email: ${email}
 
 Phone: ${phone}
 
-Address:
+Delivery Address:
 ${address}
+
+Order Notes:
+${notes || "None"}
 
 --------------------
 
-Order:
+ORDER DETAILS:
 
 `;
 
@@ -195,29 +212,40 @@ Order:
 
     cart.forEach(item => {
 
-        message += `${item.name} x${item.quantity} - ₦${item.price * item.quantity}\n`;
+        const subtotal = item.price * item.quantity;
 
-        total += item.price * item.quantity;
+        message += `${item.name} x${item.quantity} - ₦${subtotal}\n`;
+
+        total += subtotal;
 
     });
 
     message += `
-
 --------------------
 
 TOTAL: ₦${total}
+
+Please confirm my order.
+
+Thank you!
 `;
 
     const phoneNumber = "2349115180053";
 
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`);
+    const whatsappURL =
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+
+    // Clear cart after order is submitted
     cart = [];
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
     displayCart();
     updateCartCount();
+
 }
 
 // LOAD WHEN PAGE OPENS
@@ -290,4 +318,43 @@ function sortProducts(){
 
     cards.forEach(card=>container.appendChild(card));
 
+}
+// CONTACT FORM → WHATSAPP
+function sendContactMessage(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("contactName").value;
+    const email = document.getElementById("contactEmail").value;
+    const message = document.getElementById("contactMessage").value;
+
+    const whatsappMessage = `💬 NEW WEBSITE MESSAGE
+
+Name: ${name}
+
+Email: ${email}
+
+Message:
+${message}
+
+--------------------
+Sent from Tommy's Beauty Essentials website.
+`;
+
+    const phoneNumber = "2349115180053";
+
+    const whatsappURL =
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    window.open(whatsappURL, "_blank");
+
+}
+// MOBILE NAVIGATION
+function toggleMenu() {
+
+    const nav = document.getElementById("mainNav");
+
+    if (!nav) return;
+
+    nav.classList.toggle("mobile-menu-open");
 }
