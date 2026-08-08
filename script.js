@@ -375,16 +375,17 @@ await emailjs.send(
 
 console.log("Customer confirmation email sent successfully.");
 
-    } catch (error) {
+} catch (error) {
 
-        console.error("EmailJS error:", error);
+    console.error("EmailJS error:", error);
 
-        alert(
-            "Your order could not be sent right now. Please try again."
-        );
+    alert(
+        "EmailJS ERROR: " +
+        (error.text || error.message || "Unknown error")
+    );
 
-        return;
-    }
+    return;
+}
 
     // =====================================
     // OPEN WHATSAPP
