@@ -2,7 +2,20 @@ console.log("Welcome to Tommy's Beauty Essentials");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+// =====================================
+// EMAILJS SETTINGS
+// =====================================
+
+const EMAILJS_SERVICE_ID = "service_cyaiimf";
+
+const EMAILJS_TEMPLATE_ID = "template_dq9jlhe";
+const CUSTOMER_EMAIL_TEMPLATE_ID = "template_nwxhjw4";
+
+const EMAILJS_PUBLIC_KEY = "Kle0_0OGHeht6iyXC";
+// =====================================
 // ADD TO CART
+// =====================================
+
 function addToCart(productName, productPrice) {
 
     const existingProduct = cart.find(item => item.name === productName);
@@ -25,7 +38,10 @@ function addToCart(productName, productPrice) {
     updateCartCount();
 }
 
+// =====================================
 // DISPLAY CART
+// =====================================
+
 function displayCart() {
 
     const cartItems = document.getElementById("cart-items");
@@ -36,7 +52,6 @@ function displayCart() {
 
     cartItems.innerHTML = "";
 
-    // Show empty cart message
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
@@ -46,7 +61,9 @@ function displayCart() {
             </div>
         `;
 
-        cartTotal.innerHTML = "₦0";
+        if (cartTotal) {
+            cartTotal.innerHTML = "₦0";
+        }
 
         if (checkoutBtn) {
             checkoutBtn.disabled = true;
@@ -55,7 +72,6 @@ function displayCart() {
         return;
     }
 
-    // Enable checkout if cart has items
     if (checkoutBtn) {
         checkoutBtn.disabled = false;
     }
@@ -83,9 +99,14 @@ function displayCart() {
 
             </div>
 
-            <p><strong>Subtotal:</strong> ₦${item.price * item.quantity}</p>
+            <p>
+                <strong>Subtotal:</strong>
+                ₦${item.price * item.quantity}
+            </p>
 
-            <button onclick="removeItem(${index})">🗑 Remove</button>
+            <button onclick="removeItem(${index})">
+                🗑 Remove
+            </button>
 
             <hr>
 
@@ -94,10 +115,15 @@ function displayCart() {
 
     });
 
-    cartTotal.innerHTML = "₦" + total;
+    if (cartTotal) {
+        cartTotal.innerHTML = "₦" + total;
+    }
 }
 
+// =====================================
 // INCREASE QUANTITY
+// =====================================
+
 function increaseQuantity(index) {
 
     cart[index].quantity++;
@@ -108,13 +134,20 @@ function increaseQuantity(index) {
     updateCartCount();
 }
 
+// =====================================
 // DECREASE QUANTITY
+// =====================================
+
 function decreaseQuantity(index) {
 
     if (cart[index].quantity > 1) {
+
         cart[index].quantity--;
+
     } else {
+
         cart.splice(index, 1);
+
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -123,7 +156,10 @@ function decreaseQuantity(index) {
     updateCartCount();
 }
 
+// =====================================
 // REMOVE ITEM
+// =====================================
+
 function removeItem(index) {
 
     cart.splice(index, 1);
@@ -134,7 +170,10 @@ function removeItem(index) {
     updateCartCount();
 }
 
+// =====================================
 // CLEAR CART
+// =====================================
+
 function clearCart() {
 
     if (confirm("Are you sure you want to clear your cart?")) {
@@ -148,7 +187,10 @@ function clearCart() {
     }
 }
 
+// =====================================
 // UPDATE CART NUMBER
+// =====================================
+
 function updateCartCount() {
 
     const cartLink = document.getElementById("cart-link");
@@ -164,31 +206,74 @@ function updateCartCount() {
     cartLink.innerHTML = `🛒 Cart (${count})`;
 }
 
+// =====================================
+// CREATE ORDER NUMBER
+// =====================================
+
+function generateOrderNumber() {
+
+    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+
+    return "TBE-" + new Date().getFullYear() + "-" + randomNumber;
+}
+
+// =====================================
 // PLACE ORDER
-function placeOrder(event) {
+// =====================================
+
+async function placeOrder(event) {
 
     event.preventDefault();
 
-    // Make sure there are products in the cart
+    // Make sure there are products
     if (cart.length === 0) {
 
-        alert("Your cart is empty. Please add a product before placing an order.");
+        alert(
+            "Your cart is empty. Please add a product before placing an order."
+        );
 
         window.location.href = "cart.html";
 
         return;
     }
 
-    const name = document.querySelector('input[type="text"]').value;
-    const email = document.querySelector('input[type="email"]').value;
-    const phone = document.querySelector('input[type="tel"]').value;
+    // Get customer information
+    const nameInput = document.querySelector('input[type="text"]');
+    const emailInput = document.querySelector('input[type="email"]');
+    const phoneInput = document.querySelector('input[type="tel"]');
 
     const textareas = document.querySelectorAll("textarea");
 
-    const address = textareas[0].value;
-    const notes = textareas[1] ? textareas[1].value : "";
+    const name = nameInput ? nameInput.value.trim() : "";
+    const email = emailInput ? emailInput.value.trim() : "";
+    const phone = phoneInput ? phoneInput.value.trim() : "";
 
-    let message = `🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
+    const address = textareas[0]
+        ? textareas[0].value.trim()
+        : "";
+
+    const notes = textareas[1]
+        ? textareas[1].value.trim()
+        : "";
+
+    // Basic validation
+    if (!name || !email || !phone || !address) {
+
+        alert(
+            "Please fill in your name, email, phone number and delivery address."
+        );
+
+        return;
+    }
+
+    // Create order number
+    const orderNumber = generateOrderNumber();
+
+    // Create order details
+    let orderItems = "";
+    let whatsappMessage = `🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
+
+Order Number: ${orderNumber}
 
 Name: ${name}
 
@@ -214,31 +299,108 @@ ORDER DETAILS:
 
         const subtotal = item.price * item.quantity;
 
-        message += `${item.name} x${item.quantity} - ₦${subtotal}\n`;
+        orderItems +=
+            `${item.name} x${item.quantity} - ₦${subtotal}\n`;
+
+        whatsappMessage +=
+            `${item.name} x${item.quantity} - ₦${subtotal}\n`;
 
         total += subtotal;
-
     });
 
-    message += `
+    whatsappMessage += `
 --------------------
 
 TOTAL: ₦${total}
 
-Please confirm my order.
+PAYMENT STATUS: AWAITING PAYMENT
+
+Please confirm payment before processing the order.
 
 Thank you!
 `;
 
+    // =====================================
+    // SEND EMAIL TO TOMMY
+    // =====================================
+
+    if (typeof emailjs === "undefined") {
+
+        alert(
+            "Email service is not connected yet. Please try again after the EmailJS setup is completed."
+        );
+
+        return;
+    }
+
+    try {
+
+        emailjs.init({
+            publicKey: EMAILJS_PUBLIC_KEY
+        });
+
+        const templateParams = {
+
+            order_number: orderNumber,
+
+            customer_name: name,
+
+            customer_email: email,
+
+            customer_phone: phone,
+
+            delivery_address: address,
+
+            order_items: orderItems,
+
+            order_total: "₦" + total
+
+        };
+
+        // Send order notification to Tommy
+await emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    templateParams
+);
+
+console.log("Order notification email sent to Tommy successfully.");
+
+// Send confirmation email to customer
+await emailjs.send(
+    EMAILJS_SERVICE_ID,
+    CUSTOMER_EMAIL_TEMPLATE_ID,
+    templateParams
+);
+
+console.log("Customer confirmation email sent successfully.");
+
+    } catch (error) {
+
+        console.error("EmailJS error:", error);
+
+        alert(
+            "Your order could not be sent right now. Please try again."
+        );
+
+        return;
+    }
+
+    // =====================================
+    // OPEN WHATSAPP
+    // =====================================
+
     const phoneNumber = "2349115180053";
 
     const whatsappURL =
-        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    // Open WhatsApp
     window.open(whatsappURL, "_blank");
 
-    // Clear cart after order is submitted
+    // =====================================
+    // CLEAR CART
+    // =====================================
+
     cart = [];
 
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -246,11 +408,15 @@ Thank you!
     displayCart();
     updateCartCount();
 
+    alert(
+        `Order ${orderNumber} has been submitted successfully!`
+    );
 }
 
-// LOAD WHEN PAGE OPENS
-displayCart();
-updateCartCount();
+// =====================================
+// SEARCH PRODUCTS
+// =====================================
+
 function searchProducts() {
 
     const input = document.getElementById("searchInput");
@@ -259,11 +425,18 @@ function searchProducts() {
 
     const filter = input.value.toLowerCase();
 
-    const products = document.querySelectorAll(".product-card");
+    const products =
+        document.querySelectorAll(".product-card");
 
     products.forEach(product => {
 
-        const name = product.querySelector("h3").textContent.toLowerCase();
+        const title =
+            product.querySelector("h3");
+
+        if (!title) return;
+
+        const name =
+            title.textContent.toLowerCase();
 
         if (name.includes(filter)) {
 
@@ -276,33 +449,70 @@ function searchProducts() {
         }
 
     });
-
 }
-function sortProducts(){
 
-    const sort = document.getElementById("sort");
+// =====================================
+// SORT PRODUCTS
+// =====================================
 
-    if(!sort) return;
+function sortProducts() {
 
-    const container = document.querySelector(".product-container");
+    const sort =
+        document.getElementById("sort");
 
-    const cards = Array.from(container.querySelectorAll(".product-card"));
+    if (!sort) return;
 
-    cards.sort((a,b)=>{
+    const container =
+        document.querySelector(".product-container");
 
-        const priceA = parseInt(a.querySelector(".price").textContent.replace(/[₦,A-Za-z ]/g,""));
-        const priceB = parseInt(b.querySelector(".price").textContent.replace(/[₦,A-Za-z ]/g,""));
+    if (!container) return;
 
-        const nameA = a.querySelector("h3").textContent;
-        const nameB = b.querySelector("h3").textContent;
+    const cards =
+        Array.from(
+            container.querySelectorAll(".product-card")
+        );
 
-        switch(sort.value){
+    cards.sort((a, b) => {
+
+        const priceElementA =
+            a.querySelector(".price");
+
+        const priceElementB =
+            b.querySelector(".price");
+
+        const priceA =
+            priceElementA
+                ? parseInt(
+                    priceElementA.textContent
+                        .replace(/[₦,A-Za-z ]/g, "")
+                )
+                : 0;
+
+        const priceB =
+            priceElementB
+                ? parseInt(
+                    priceElementB.textContent
+                        .replace(/[₦,A-Za-z ]/g, "")
+                )
+                : 0;
+
+        const nameA =
+            a.querySelector("h3")
+                ? a.querySelector("h3").textContent
+                : "";
+
+        const nameB =
+            b.querySelector("h3")
+                ? b.querySelector("h3").textContent
+                : "";
+
+        switch (sort.value) {
 
             case "low-high":
-                return priceA-priceB;
+                return priceA - priceB;
 
             case "high-low":
-                return priceB-priceA;
+                return priceB - priceA;
 
             case "a-z":
                 return nameA.localeCompare(nameB);
@@ -316,17 +526,27 @@ function sortProducts(){
 
     });
 
-    cards.forEach(card=>container.appendChild(card));
-
+    cards.forEach(card => {
+        container.appendChild(card);
+    });
 }
+
+// =====================================
 // CONTACT FORM → WHATSAPP
+// =====================================
+
 function sendContactMessage(event) {
 
     event.preventDefault();
 
-    const name = document.getElementById("contactName").value;
-    const email = document.getElementById("contactEmail").value;
-    const message = document.getElementById("contactMessage").value;
+    const name =
+        document.getElementById("contactName").value;
+
+    const email =
+        document.getElementById("contactEmail").value;
+
+    const message =
+        document.getElementById("contactMessage").value;
 
     const whatsappMessage = `💬 NEW WEBSITE MESSAGE
 
@@ -341,20 +561,32 @@ ${message}
 Sent from Tommy's Beauty Essentials website.
 `;
 
-    const phoneNumber = "2349115180053";
+    const phoneNumber =
+        "2349115180053";
 
     const whatsappURL =
         `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
     window.open(whatsappURL, "_blank");
-
 }
+
+// =====================================
 // MOBILE NAVIGATION
+// =====================================
+
 function toggleMenu() {
 
-    const nav = document.getElementById("mainNav");
+    const nav =
+        document.getElementById("mainNav");
 
     if (!nav) return;
 
     nav.classList.toggle("mobile-menu-open");
 }
+
+// =====================================
+// LOAD WHEN PAGE OPENS
+// =====================================
+
+displayCart();
+updateCartCount();
