@@ -7,11 +7,10 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 // =====================================
 
 const EMAILJS_SERVICE_ID = "service_cyaiimf";
-
 const EMAILJS_TEMPLATE_ID = "template_dq9jlhe";
 const CUSTOMER_EMAIL_TEMPLATE_ID = "template_nwxhjw4";
+const EMAILJS_PUBLIC_KEY = "PASTE_THE_COPIED_PUBLIC_KEY_HERE";
 
-const EMAILJS_PUBLIC_KEY = "Kle0_0OGHeht6iyXC";
 // =====================================
 // ADD TO CART
 // =====================================
@@ -112,7 +111,6 @@ function displayCart() {
 
         </div>
         `;
-
     });
 
     if (cartTotal) {
@@ -141,13 +139,9 @@ function increaseQuantity(index) {
 function decreaseQuantity(index) {
 
     if (cart[index].quantity > 1) {
-
         cart[index].quantity--;
-
     } else {
-
         cart.splice(index, 1);
-
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -212,9 +206,13 @@ function updateCartCount() {
 
 function generateOrderNumber() {
 
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+    const randomNumber =
+        Math.floor(1000 + Math.random() * 9000);
 
-    return "TBE-" + new Date().getFullYear() + "-" + randomNumber;
+    return "TBE-" +
+        new Date().getFullYear() +
+        "-" +
+        randomNumber;
 }
 
 // =====================================
@@ -225,7 +223,10 @@ async function placeOrder(event) {
 
     event.preventDefault();
 
-    // Make sure there are products
+    // ---------------------------------
+    // CHECK CART
+    // ---------------------------------
+
     if (cart.length === 0) {
 
         alert(
@@ -237,26 +238,45 @@ async function placeOrder(event) {
         return;
     }
 
-    // Get customer information
-    const nameInput = document.querySelector('input[type="text"]');
-    const emailInput = document.querySelector('input[type="email"]');
-    const phoneInput = document.querySelector('input[type="tel"]');
+    // ---------------------------------
+    // GET CUSTOMER INFORMATION
+    // ---------------------------------
 
-    const textareas = document.querySelectorAll("textarea");
+    const nameInput =
+        document.querySelector('input[type="text"]');
 
-    const name = nameInput ? nameInput.value.trim() : "";
-    const email = emailInput ? emailInput.value.trim() : "";
-    const phone = phoneInput ? phoneInput.value.trim() : "";
+    const emailInput =
+        document.querySelector('input[type="email"]');
 
-    const address = textareas[0]
-        ? textareas[0].value.trim()
-        : "";
+    const phoneInput =
+        document.querySelector('input[type="tel"]');
 
-    const notes = textareas[1]
-        ? textareas[1].value.trim()
-        : "";
+    const textareas =
+        document.querySelectorAll("textarea");
 
-    // Basic validation
+    const name =
+        nameInput ? nameInput.value.trim() : "";
+
+    const email =
+        emailInput ? emailInput.value.trim() : "";
+
+    const phone =
+        phoneInput ? phoneInput.value.trim() : "";
+
+    const address =
+        textareas[0]
+            ? textareas[0].value.trim()
+            : "";
+
+    const notes =
+        textareas[1]
+            ? textareas[1].value.trim()
+            : "";
+
+    // ---------------------------------
+    // VALIDATE CUSTOMER INFORMATION
+    // ---------------------------------
+
     if (!name || !email || !phone || !address) {
 
         alert(
@@ -266,12 +286,21 @@ async function placeOrder(event) {
         return;
     }
 
-    // Create order number
-    const orderNumber = generateOrderNumber();
+    // ---------------------------------
+    // CREATE ORDER NUMBER
+    // ---------------------------------
 
-    // Create order details
+    const orderNumber =
+        generateOrderNumber();
+
+    // ---------------------------------
+    // CREATE ORDER DETAILS
+    // ---------------------------------
+
     let orderItems = "";
-    let whatsappMessage = `🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
+
+    let whatsappMessage =
+`🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
 
 Order Number: ${orderNumber}
 
@@ -297,7 +326,8 @@ ORDER DETAILS:
 
     cart.forEach(item => {
 
-        const subtotal = item.price * item.quantity;
+        const subtotal =
+            item.price * item.quantity;
 
         orderItems +=
             `${item.name} x${item.quantity} - ₦${subtotal}\n`;
@@ -308,7 +338,8 @@ ORDER DETAILS:
         total += subtotal;
     });
 
-    whatsappMessage += `
+    whatsappMessage +=
+`
 --------------------
 
 TOTAL: ₦${total}
@@ -320,83 +351,107 @@ Please confirm payment before processing the order.
 Thank you!
 `;
 
+    // ---------------------------------
+    // EMAIL TEMPLATE DATA
+    // ---------------------------------
+
+    const templateParams = {
+
+        order_number: orderNumber,
+
+        customer_name: name,
+
+        customer_email: email,
+
+        customer_phone: phone,
+
+        delivery_address: address,
+
+        order_items: orderItems,
+
+        order_total: "₦" + total
+    };
+
     // =====================================
-    // SEND EMAIL TO TOMMY
+    // EMAILJS
     // =====================================
 
-    if (typeof emailjs === "undefined") {
-
-        alert(
-            "Email service is not connected yet. Please try again after the EmailJS setup is completed."
-        );
-
-        return;
-    }
-
-    try {
+    if (typeof emailjs !== "undefined") {
 
         emailjs.init({
             publicKey: EMAILJS_PUBLIC_KEY
         });
 
-        const templateParams = {
+        // ---------------------------------
+        // SEND EMAIL TO TOMMY
+        // ---------------------------------
 
-            order_number: orderNumber,
+        try {
 
-            customer_name: name,
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams
+            );
 
-            customer_email: email,
+            console.log(
+                "Order notification email sent to Tommy."
+            );
 
-            customer_phone: phone,
+        } catch (error) {
 
-            delivery_address: address,
+            console.error(
+                "Tommy email failed:",
+                error
+            );
 
-            order_items: orderItems,
+        }
 
-            order_total: "₦" + total
+        // ---------------------------------
+        // SEND EMAIL TO CUSTOMER
+        // ---------------------------------
 
-        };
+        try {
 
-        // Send order notification to Tommy
-await emailjs.send(
-    EMAILJS_SERVICE_ID,
-    EMAILJS_TEMPLATE_ID,
-    templateParams
-);
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                CUSTOMER_EMAIL_TEMPLATE_ID,
+                templateParams
+            );
 
-console.log("Order notification email sent to Tommy successfully.");
+            console.log(
+                "Customer confirmation email sent."
+            );
 
-// Send confirmation email to customer
-await emailjs.send(
-    EMAILJS_SERVICE_ID,
-    CUSTOMER_EMAIL_TEMPLATE_ID,
-    templateParams
-);
+        } catch (error) {
 
-console.log("Customer confirmation email sent successfully.");
+            console.error(
+                "Customer confirmation email failed:",
+                error
+            );
+        }
 
-} catch (error) {
+    } else {
 
-    console.error("EmailJS error:", error);
-
-    alert(
-        "EmailJS ERROR: " +
-        (error.text || error.message || "Unknown error")
-    );
-
-    return;
-}
+        console.error(
+            "EmailJS is not loaded."
+        );
+    }
 
     // =====================================
     // OPEN WHATSAPP
     // =====================================
 
-    const phoneNumber = "2349115180053";
+    const phoneNumber =
+        "2349115180053";
 
     const whatsappURL =
         `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    window.open(whatsappURL, "_blank");
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 
     // =====================================
     // CLEAR CART
@@ -404,10 +459,17 @@ console.log("Customer confirmation email sent successfully.");
 
     cart = [];
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
     displayCart();
     updateCartCount();
+
+    // =====================================
+    // SUCCESS MESSAGE
+    // =====================================
 
     alert(
         `Order ${orderNumber} has been submitted successfully!`
@@ -420,11 +482,13 @@ console.log("Customer confirmation email sent successfully.");
 
 function searchProducts() {
 
-    const input = document.getElementById("searchInput");
+    const input =
+        document.getElementById("searchInput");
 
     if (!input) return;
 
-    const filter = input.value.toLowerCase();
+    const filter =
+        input.value.toLowerCase();
 
     const products =
         document.querySelectorAll(".product-card");
@@ -446,9 +510,7 @@ function searchProducts() {
         } else {
 
             product.style.display = "none";
-
         }
-
     });
 }
 
@@ -524,7 +586,6 @@ function sortProducts() {
             default:
                 return 0;
         }
-
     });
 
     cards.forEach(card => {
@@ -549,7 +610,8 @@ function sendContactMessage(event) {
     const message =
         document.getElementById("contactMessage").value;
 
-    const whatsappMessage = `💬 NEW WEBSITE MESSAGE
+    const whatsappMessage =
+`💬 NEW WEBSITE MESSAGE
 
 Name: ${name}
 
@@ -568,7 +630,10 @@ Sent from Tommy's Beauty Essentials website.
     const whatsappURL =
         `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    window.open(whatsappURL, "_blank");
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 }
 
 // =====================================
@@ -582,7 +647,9 @@ function toggleMenu() {
 
     if (!nav) return;
 
-    nav.classList.toggle("mobile-menu-open");
+    nav.classList.toggle(
+        "mobile-menu-open"
+    );
 }
 
 // =====================================
