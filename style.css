@@ -686,3 +686,124 @@ footer{
     }
 
 }
+/* =====================================
+   CHECKOUT ORDER SUMMARY
+===================================== */
+
+.checkout-summary {
+    background: #fff;
+    border: 1px solid #e8e2dc;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 0 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.checkout-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 0;
+    font-size: 15px;
+}
+
+.checkout-summary-item span {
+    color: #333;
+}
+
+.checkout-summary-item strong {
+    color: #111;
+    white-space: nowrap;
+}
+
+.checkout-summary hr {
+    border: none;
+    border-top: 1px solid #e8e2dc;
+    margin: 12px 0;
+}
+
+.checkout-summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding-top: 8px;
+}
+
+.checkout-summary-total strong:last-child {
+    font-size: 20px;
+}
+/* =====================================
+   PAYMENT CARD
+===================================== */
+
+.payment-card {
+    background: #fff;
+    border: 1px solid #e8e2dc;
+    border-radius: 14px;
+    padding: 22px;
+    margin: 20px 0 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.payment-card h4 {
+    margin: 0 0 8px;
+    font-size: 19px;
+}
+
+.payment-instruction {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.payment-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid #eee8e2;
+}
+
+.payment-detail span {
+    color: #777;
+}
+
+.payment-detail strong {
+    color: #111;
+    text-align: right;
+}
+
+.payment-warning {
+    background: #faf6f0;
+    border-radius: 10px;
+    padding: 13px;
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.payment-note {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 18px;
+    color: #555;
+}
+/* =====================================
+   OUT OF STOCK BUTTON
+===================================== */
+
+.out-of-stock-btn {
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #d9d9d9;
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: not-allowed;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

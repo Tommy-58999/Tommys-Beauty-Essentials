@@ -2,14 +2,36 @@ console.log("Welcome to Tommy's Beauty Essentials");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+
 // =====================================
-// EMAILJS SETTINGS
+// DISCOUNT SYSTEM
 // =====================================
 
-const EMAILJS_SERVICE_ID = "service_cyaiimf";
-const EMAILJS_TEMPLATE_ID = "template_dq9jlhe";
-const CUSTOMER_EMAIL_TEMPLATE_ID = "template_nwxhjw4";
-const EMAILJS_PUBLIC_KEY = "PASTE_THE_COPIED_PUBLIC_KEY_HERE";
+let appliedDiscount = 0;
+let appliedDiscountCode = "";
+
+const discountCodes = {
+
+    TOMMY10: {
+        type: "percentage",
+        value: 10,
+        minimum: 4500
+    },
+
+    WELCOME15: {
+        type: "percentage",
+        value: 15,
+        minimum: 8000
+    },
+
+    GLOW500: {
+        type: "fixed",
+        value: 500,
+        minimum: 0
+    }
+
+};
+
 
 // =====================================
 // ADD TO CART
@@ -17,25 +39,47 @@ const EMAILJS_PUBLIC_KEY = "PASTE_THE_COPIED_PUBLIC_KEY_HERE";
 
 function addToCart(productName, productPrice) {
 
-    const existingProduct = cart.find(item => item.name === productName);
+    const existingProduct = cart.find(
+        item => item.name === productName
+    );
 
     if (existingProduct) {
+
         existingProduct.quantity++;
+
     } else {
+
         cart.push({
             name: productName,
             price: productPrice,
             quantity: 1
         });
+
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart();
 
     alert(productName + " has been added to your cart!");
 
     displayCart();
+    displayCheckoutSummary();
     updateCartCount();
 }
+
+
+// =====================================
+// SAVE CART
+// =====================================
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+}
+
 
 // =====================================
 // DISPLAY CART
@@ -43,9 +87,14 @@ function addToCart(productName, productPrice) {
 
 function displayCart() {
 
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-    const checkoutBtn = document.getElementById("checkoutBtn");
+    const cartItems =
+        document.getElementById("cart-items");
+
+    const cartTotal =
+        document.getElementById("cart-total");
+
+    const checkoutBtn =
+        document.getElementById("checkoutBtn");
 
     if (!cartItems) return;
 
@@ -79,44 +128,168 @@ function displayCart() {
 
     cart.forEach((item, index) => {
 
-        total += item.price * item.quantity;
+        const subtotal =
+            item.price * item.quantity;
+
+        total += subtotal;
 
         cartItems.innerHTML += `
-        <div class="cart-item">
+            <div class="cart-item">
 
-            <h3>${item.name}</h3>
+                <h3>${item.name}</h3>
 
-            <p>Price: ₦${item.price}</p>
+                <p>
+                    Price: ₦${item.price}
+                </p>
 
-            <div class="quantity-controls">
+                <div class="quantity-controls">
 
-                <button onclick="decreaseQuantity(${index})">−</button>
+                    <button onclick="decreaseQuantity(${index})">
+                        −
+                    </button>
 
-                <span>${item.quantity}</span>
+                    <span>${item.quantity}</span>
 
-                <button onclick="increaseQuantity(${index})">+</button>
+                    <button onclick="increaseQuantity(${index})">
+                        +
+                    </button>
+
+                </div>
+
+                <p>
+                    <strong>Subtotal:</strong>
+                    ₦${subtotal}
+                </p>
+
+                <button onclick="removeItem(${index})">
+                    🗑 Remove
+                </button>
+
+                <hr>
 
             </div>
-
-            <p>
-                <strong>Subtotal:</strong>
-                ₦${item.price * item.quantity}
-            </p>
-
-            <button onclick="removeItem(${index})">
-                🗑 Remove
-            </button>
-
-            <hr>
-
-        </div>
         `;
     });
 
     if (cartTotal) {
         cartTotal.innerHTML = "₦" + total;
     }
+
 }
+
+
+// =====================================
+// CHECKOUT ORDER SUMMARY
+// =====================================
+
+function displayCheckoutSummary() {
+
+    const summary =
+        document.getElementById("checkout-summary");
+
+    if (!summary) return;
+
+    if (cart.length === 0) {
+
+        summary.innerHTML = `
+            <p>Your cart is empty.</p>
+        `;
+
+        return;
+    }
+
+    let subtotal = 0;
+    let summaryHTML = "";
+
+    cart.forEach(item => {
+
+        const itemSubtotal =
+            item.price * item.quantity;
+
+        subtotal += itemSubtotal;
+
+        summaryHTML += `
+            <div class="checkout-summary-item">
+
+                <span>
+                    ${item.name} × ${item.quantity}
+                </span>
+
+                <strong>
+                    ₦${itemSubtotal}
+                </strong>
+
+            </div>
+        `;
+
+    });
+
+    const discount =
+        Math.min(appliedDiscount, subtotal);
+
+    const total =
+        subtotal - discount;
+
+    summaryHTML += `
+
+        <hr>
+
+        <div class="checkout-summary-item">
+
+            <span>
+                Subtotal
+            </span>
+
+            <strong>
+                ₦${subtotal}
+            </strong>
+
+        </div>
+
+    `;
+
+    if (discount > 0) {
+
+        summaryHTML += `
+
+            <div class="checkout-summary-item">
+
+                <span>
+                    Discount ${appliedDiscountCode
+                        ? `(${appliedDiscountCode})`
+                        : ""}
+                </span>
+
+                <strong>
+                    -₦${discount}
+                </strong>
+
+            </div>
+
+        `;
+
+    }
+
+    summaryHTML += `
+
+        <div class="checkout-summary-total">
+
+            <strong>
+                Total
+            </strong>
+
+            <strong>
+                ₦${total}
+            </strong>
+
+        </div>
+
+    `;
+
+    summary.innerHTML = summaryHTML;
+
+}
+
 
 // =====================================
 // INCREASE QUANTITY
@@ -124,13 +297,18 @@ function displayCart() {
 
 function increaseQuantity(index) {
 
+    if (!cart[index]) return;
+
     cart[index].quantity++;
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart();
 
     displayCart();
+    displayCheckoutSummary();
     updateCartCount();
+
 }
+
 
 // =====================================
 // DECREASE QUANTITY
@@ -138,17 +316,26 @@ function increaseQuantity(index) {
 
 function decreaseQuantity(index) {
 
+    if (!cart[index]) return;
+
     if (cart[index].quantity > 1) {
+
         cart[index].quantity--;
+
     } else {
+
         cart.splice(index, 1);
+
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart();
 
     displayCart();
+    displayCheckoutSummary();
     updateCartCount();
+
 }
+
 
 // =====================================
 // REMOVE ITEM
@@ -156,13 +343,18 @@ function decreaseQuantity(index) {
 
 function removeItem(index) {
 
+    if (!cart[index]) return;
+
     cart.splice(index, 1);
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart();
 
     displayCart();
+    displayCheckoutSummary();
     updateCartCount();
+
 }
+
 
 // =====================================
 // CLEAR CART
@@ -170,24 +362,36 @@ function removeItem(index) {
 
 function clearCart() {
 
-    if (confirm("Are you sure you want to clear your cart?")) {
+    if (
+        confirm(
+            "Are you sure you want to clear your cart?"
+        )
+    ) {
 
         cart = [];
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+        appliedDiscount = 0;
+        appliedDiscountCode = "";
+
+        saveCart();
 
         displayCart();
+        displayCheckoutSummary();
         updateCartCount();
+
     }
+
 }
 
+
 // =====================================
-// UPDATE CART NUMBER
+// UPDATE CART COUNT
 // =====================================
 
 function updateCartCount() {
 
-    const cartLink = document.getElementById("cart-link");
+    const cartLink =
+        document.getElementById("cart-link");
 
     if (!cartLink) return;
 
@@ -197,8 +401,11 @@ function updateCartCount() {
         count += item.quantity;
     });
 
-    cartLink.innerHTML = `🛒 Cart (${count})`;
+    cartLink.innerHTML =
+        `🛒 Cart (${count})`;
+
 }
+
 
 // =====================================
 // CREATE ORDER NUMBER
@@ -207,25 +414,125 @@ function updateCartCount() {
 function generateOrderNumber() {
 
     const randomNumber =
-        Math.floor(1000 + Math.random() * 9000);
+        Math.floor(
+            1000 + Math.random() * 9000
+        );
 
-    return "TBE-" +
+    return (
+        "TBE-" +
         new Date().getFullYear() +
         "-" +
-        randomNumber;
+        randomNumber
+    );
+
 }
+
+
+// =====================================
+// APPLY DISCOUNT
+// =====================================
+
+function applyDiscount() {
+
+    const input =
+        document.getElementById("discountCode");
+
+    const message =
+        document.getElementById("discountMessage");
+
+    if (!input || !message) return;
+
+    const code =
+        input.value.trim().toUpperCase();
+
+    if (!code) {
+
+        appliedDiscount = 0;
+        appliedDiscountCode = "";
+
+        message.textContent =
+            "Please enter a discount code.";
+
+        displayCheckoutSummary();
+
+        return;
+    }
+
+    const discount =
+        discountCodes[code];
+
+    if (!discount) {
+
+        appliedDiscount = 0;
+        appliedDiscountCode = "";
+
+        message.textContent =
+            "❌ Invalid discount code.";
+
+        displayCheckoutSummary();
+
+        return;
+    }
+
+    let subtotal = 0;
+
+    cart.forEach(item => {
+
+        subtotal +=
+            item.price * item.quantity;
+
+    });
+
+    // Check minimum order amount
+    if (subtotal < discount.minimum) {
+
+        appliedDiscount = 0;
+        appliedDiscountCode = "";
+
+        message.textContent =
+            `❌ ${code} requires a minimum order of ₦${discount.minimum}.`;
+
+        displayCheckoutSummary();
+
+        return;
+    }
+
+    // Calculate discount
+    if (discount.type === "percentage") {
+
+        appliedDiscount =
+            subtotal *
+            (discount.value / 100);
+
+    } else {
+
+        appliedDiscount =
+            discount.value;
+
+    }
+
+    // Discount cannot exceed subtotal
+    if (appliedDiscount > subtotal) {
+        appliedDiscount = subtotal;
+    }
+
+    appliedDiscountCode = code;
+
+    message.textContent =
+        `✅ ${code} applied! You saved ₦${appliedDiscount}.`;
+
+    displayCheckoutSummary();
+
+}
+
 
 // =====================================
 // PLACE ORDER
 // =====================================
 
-async function placeOrder(event) {
+function placeOrder(event) {
 
     event.preventDefault();
-
-    // ---------------------------------
-    // CHECK CART
-    // ---------------------------------
 
     if (cart.length === 0) {
 
@@ -233,35 +540,50 @@ async function placeOrder(event) {
             "Your cart is empty. Please add a product before placing an order."
         );
 
-        window.location.href = "cart.html";
+        window.location.href =
+            "cart.html";
 
         return;
     }
 
     // ---------------------------------
-    // GET CUSTOMER INFORMATION
+    // CUSTOMER INFORMATION
     // ---------------------------------
 
     const nameInput =
-        document.querySelector('input[type="text"]');
+        document.querySelector(
+            'input[type="text"]'
+        );
 
     const emailInput =
-        document.querySelector('input[type="email"]');
+        document.querySelector(
+            'input[type="email"]'
+        );
 
     const phoneInput =
-        document.querySelector('input[type="tel"]');
+        document.querySelector(
+            'input[type="tel"]'
+        );
 
     const textareas =
-        document.querySelectorAll("textarea");
+        document.querySelectorAll(
+            "textarea"
+        );
 
     const name =
-        nameInput ? nameInput.value.trim() : "";
+        nameInput
+            ? nameInput.value.trim()
+            : "";
 
     const email =
-        emailInput ? emailInput.value.trim() : "";
+        emailInput
+            ? emailInput.value.trim()
+            : "";
 
     const phone =
-        phoneInput ? phoneInput.value.trim() : "";
+        phoneInput
+            ? phoneInput.value.trim()
+            : "";
 
     const address =
         textareas[0]
@@ -274,10 +596,15 @@ async function placeOrder(event) {
             : "";
 
     // ---------------------------------
-    // VALIDATE CUSTOMER INFORMATION
+    // VALIDATION
     // ---------------------------------
 
-    if (!name || !email || !phone || !address) {
+    if (
+        !name ||
+        !email ||
+        !phone ||
+        !address
+    ) {
 
         alert(
             "Please fill in your name, email, phone number and delivery address."
@@ -287,17 +614,44 @@ async function placeOrder(event) {
     }
 
     // ---------------------------------
-    // CREATE ORDER NUMBER
+    // ORDER NUMBER
     // ---------------------------------
 
     const orderNumber =
         generateOrderNumber();
 
     // ---------------------------------
-    // CREATE ORDER DETAILS
+    // CALCULATE ORDER
     // ---------------------------------
 
-    let orderItems = "";
+    let subtotal = 0;
+
+    let orderDetails = "";
+
+    cart.forEach(item => {
+
+        const itemSubtotal =
+            item.price * item.quantity;
+
+        subtotal += itemSubtotal;
+
+        orderDetails +=
+            `${item.name} x${item.quantity} - ₦${itemSubtotal}\n`;
+
+    });
+
+    let discountAmount =
+        Math.min(
+            appliedDiscount,
+            subtotal
+        );
+
+    const total =
+        subtotal - discountAmount;
+
+    // ---------------------------------
+    // WHATSAPP MESSAGE
+    // ---------------------------------
 
     let whatsappMessage =
 `🛍️ NEW ORDER - TOMMY'S BEAUTY ESSENTIALS
@@ -320,27 +674,17 @@ ${notes || "None"}
 
 ORDER DETAILS:
 
-`;
-
-    let total = 0;
-
-    cart.forEach(item => {
-
-        const subtotal =
-            item.price * item.quantity;
-
-        orderItems +=
-            `${item.name} x${item.quantity} - ₦${subtotal}\n`;
-
-        whatsappMessage +=
-            `${item.name} x${item.quantity} - ₦${subtotal}\n`;
-
-        total += subtotal;
-    });
-
-    whatsappMessage +=
-`
+${orderDetails}
 --------------------
+
+SUBTOTAL: ₦${subtotal}
+
+DISCOUNT:
+${
+    appliedDiscountCode
+        ? `${appliedDiscountCode} -₦${discountAmount}`
+        : "None"
+}
 
 TOTAL: ₦${total}
 
@@ -352,129 +696,47 @@ Thank you!
 `;
 
     // ---------------------------------
-    // EMAIL TEMPLATE DATA
-    // ---------------------------------
-
-    const templateParams = {
-
-        order_number: orderNumber,
-
-        customer_name: name,
-
-        customer_email: email,
-
-        customer_phone: phone,
-
-        delivery_address: address,
-
-        order_items: orderItems,
-
-        order_total: "₦" + total
-    };
-
-    // =====================================
-    // EMAILJS
-    // =====================================
-
-    if (typeof emailjs !== "undefined") {
-
-        emailjs.init({
-            publicKey: EMAILJS_PUBLIC_KEY
-        });
-
-        // ---------------------------------
-        // SEND EMAIL TO TOMMY
-        // ---------------------------------
-
-        try {
-
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_TEMPLATE_ID,
-                templateParams
-            );
-
-            console.log(
-                "Order notification email sent to Tommy."
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Tommy email failed:",
-                error
-            );
-
-        }
-
-        // ---------------------------------
-        // SEND EMAIL TO CUSTOMER
-        // ---------------------------------
-
-        try {
-
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                CUSTOMER_EMAIL_TEMPLATE_ID,
-                templateParams
-            );
-
-            console.log(
-                "Customer confirmation email sent."
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Customer confirmation email failed:",
-                error
-            );
-        }
-
-    } else {
-
-        console.error(
-            "EmailJS is not loaded."
-        );
-    }
-
-    // =====================================
     // OPEN WHATSAPP
-    // =====================================
+    // ---------------------------------
 
     const phoneNumber =
         "2349115180053";
 
     const whatsappURL =
-        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+            whatsappMessage
+        )}`;
 
     window.open(
         whatsappURL,
         "_blank"
     );
 
-    // =====================================
+    // ---------------------------------
     // CLEAR CART
-    // =====================================
+    // ---------------------------------
 
     cart = [];
 
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
+    appliedDiscount = 0;
+    appliedDiscountCode = "";
+
+    saveCart();
 
     displayCart();
+    displayCheckoutSummary();
     updateCartCount();
 
-    // =====================================
+    // ---------------------------------
     // SUCCESS MESSAGE
-    // =====================================
+    // ---------------------------------
 
     alert(
         `Order ${orderNumber} has been submitted successfully!`
     );
+
 }
+
 
 // =====================================
 // SEARCH PRODUCTS
@@ -491,7 +753,9 @@ function searchProducts() {
         input.value.toLowerCase();
 
     const products =
-        document.querySelectorAll(".product-card");
+        document.querySelectorAll(
+            ".product-card"
+        );
 
     products.forEach(product => {
 
@@ -503,16 +767,15 @@ function searchProducts() {
         const name =
             title.textContent.toLowerCase();
 
-        if (name.includes(filter)) {
+        product.style.display =
+            name.includes(filter)
+                ? "block"
+                : "none";
 
-            product.style.display = "block";
-
-        } else {
-
-            product.style.display = "none";
-        }
     });
+
 }
+
 
 // =====================================
 // SORT PRODUCTS
@@ -526,13 +789,17 @@ function sortProducts() {
     if (!sort) return;
 
     const container =
-        document.querySelector(".product-container");
+        document.querySelector(
+            ".product-container"
+        );
 
     if (!container) return;
 
     const cards =
         Array.from(
-            container.querySelectorAll(".product-card")
+            container.querySelectorAll(
+                ".product-card"
+            )
         );
 
     cards.sort((a, b) => {
@@ -547,7 +814,10 @@ function sortProducts() {
             priceElementA
                 ? parseInt(
                     priceElementA.textContent
-                        .replace(/[₦,A-Za-z ]/g, "")
+                        .replace(
+                            /[₦,A-Za-z ]/g,
+                            ""
+                        )
                 )
                 : 0;
 
@@ -555,7 +825,10 @@ function sortProducts() {
             priceElementB
                 ? parseInt(
                     priceElementB.textContent
-                        .replace(/[₦,A-Za-z ]/g, "")
+                        .replace(
+                            /[₦,A-Za-z ]/g,
+                            ""
+                        )
                 )
                 : 0;
 
@@ -585,13 +858,19 @@ function sortProducts() {
 
             default:
                 return 0;
+
         }
+
     });
 
     cards.forEach(card => {
+
         container.appendChild(card);
+
     });
+
 }
+
 
 // =====================================
 // CONTACT FORM → WHATSAPP
@@ -602,13 +881,19 @@ function sendContactMessage(event) {
     event.preventDefault();
 
     const name =
-        document.getElementById("contactName").value;
+        document.getElementById(
+            "contactName"
+        ).value;
 
     const email =
-        document.getElementById("contactEmail").value;
+        document.getElementById(
+            "contactEmail"
+        ).value;
 
     const message =
-        document.getElementById("contactMessage").value;
+        document.getElementById(
+            "contactMessage"
+        ).value;
 
     const whatsappMessage =
 `💬 NEW WEBSITE MESSAGE
@@ -628,13 +913,17 @@ Sent from Tommy's Beauty Essentials website.
         "2349115180053";
 
     const whatsappURL =
-        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+            whatsappMessage
+        )}`;
 
     window.open(
         whatsappURL,
         "_blank"
     );
+
 }
+
 
 // =====================================
 // MOBILE NAVIGATION
@@ -643,18 +932,23 @@ Sent from Tommy's Beauty Essentials website.
 function toggleMenu() {
 
     const nav =
-        document.getElementById("mainNav");
+        document.getElementById(
+            "mainNav"
+        );
 
     if (!nav) return;
 
     nav.classList.toggle(
         "mobile-menu-open"
     );
+
 }
+
 
 // =====================================
 // LOAD WHEN PAGE OPENS
 // =====================================
 
 displayCart();
+displayCheckoutSummary();
 updateCartCount();

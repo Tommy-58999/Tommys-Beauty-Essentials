@@ -68,23 +68,82 @@
             rows="3"
         ></textarea>
 
-        <h3>Payment Details</h3>
+        <h3>Order Summary</h3>
 
-        <p><strong>Bank:</strong> Opay</p>
+<div id="checkout-summary" class="checkout-summary">
+    <p>Loading your order...</p>
+</div>
+<div class="discount-section">
 
-        <p><strong>Account Name:</strong> Okuneye Oluwatofunmi</p>
+    <h3>Have a discount code?</h3>
 
-        <p><strong>Account Number:</strong> 7046308160</p>
+    <div class="discount-input-group">
 
-        <button type="submit" class="checkout-btn">
-            Place Order
+        <input
+            type="text"
+            id="discountCode"
+            placeholder="Enter discount code"
+        >
+
+        <button
+            type="button"
+            onclick="applyDiscount()"
+        >
+            Apply
         </button>
+
+    </div>
+
+    <p id="discountMessage"></p>
+
+</div>
+
+<h3>Payment Details</h3>
+
+<div class="payment-card">
+
+    <h4>💳 Make Your Payment</h4>
+
+    <p class="payment-instruction">
+        Please transfer the exact order total to the account below.
+    </p>
+
+    <div class="payment-detail">
+        <span>Bank</span>
+        <strong>Opay</strong>
+    </div>
+
+    <div class="payment-detail">
+        <span>Account Name</span>
+        <strong>Okuneye Oluwatofunmi</strong>
+    </div>
+
+    <div class="payment-detail">
+        <span>Account Number</span>
+        <strong>7046308160</strong>
+    </div>
+
+    <div class="payment-warning">
+        ⚠️ Please make sure you transfer the exact amount shown in your
+        Order Summary.
+    </div>
+
+    <p class="payment-note">
+        After making your payment, click <strong>Place Order</strong>.
+        Your order details will be sent to us on WhatsApp for confirmation.
+    </p>
+
+</div>
+
+<button type="submit" class="checkout-btn">
+    Place Order
+</button>
 
     </form>
 
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script src="script.js"></script>
 
 </body>
