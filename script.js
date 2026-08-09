@@ -11,25 +11,35 @@ let appliedDiscount = 0;
 let appliedDiscountCode = "";
 
 const discountCodes = {
-
-    TOMMY10: {
+    "TOMMY10": {
         type: "percentage",
         value: 10,
         minimum: 4500
     },
 
-    WELCOME15: {
+    "GLOW500": {
+        type: "fixed",
+        value: 500,
+        minimum: 0
+    },
+
+    "WELCOME15": {
         type: "percentage",
         value: 15,
         minimum: 8000
     },
 
-    GLOW500: {
-        type: "fixed",
-        value: 500,
-        minimum: 0
-    }
+    "GOLD15": {
+        type: "percentage",
+        value: 15,
+        minimum: 4000
+    },
 
+    "PRECIOUS15": {
+        type: "percentage",
+        value: 15,
+        minimum: 4000
+    }
 };
 
 
