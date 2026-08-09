@@ -29,13 +29,13 @@ const discountCodes = {
         minimum: 8000
     },
 
-    "GOLD15": {
+    "CLASSIC_GOLD10": {
         type: "percentage",
         value: 15,
         minimum: 4000
     },
 
-    "PRECIOUS15": {
+    "QUEENHELLEN16": {
         type: "percentage",
         value: 15,
         minimum: 4000
