@@ -30,16 +30,16 @@ const discountCodes = {
     },
 
     "CLASSIC_GOLD10": {
-        type: "percentage",
-        value: 15,
-        minimum: 4000
-    },
+    type: "percentage",
+    value: 15,
+    minimum: 4000
+},
 
-    "QUEENHELLEN16": {
-        type: "percentage",
-        value: 15,
-        minimum: 4000
-    }
+"QUEENHELLEN16": {
+    type: "percentage",
+    value: 15,
+    minimum: 4000
+}
 };
 
 
