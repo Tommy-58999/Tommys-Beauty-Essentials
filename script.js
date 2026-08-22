@@ -942,16 +942,18 @@ Sent from Tommy's Beauty Essentials website.
 function toggleMenu() {
 
     const nav =
-        document.getElementById(
-            "mainNav"
-        );
+        document.getElementById("mainNav");
+
+    const overlay =
+        document.querySelector(".menu-overlay");
 
     if (!nav) return;
 
-    nav.classList.toggle(
-        "mobile-menu-open"
-    );
+    nav.classList.toggle("mobile-menu-open");
 
+    if (overlay) {
+        overlay.classList.toggle("mobile-menu-open");
+    }
 }
 
 
