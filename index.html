@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,253 +13,477 @@
 
 <body>
 
-<header>
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-    <div class="header-top">
-        <h1>Tommy's Beauty Essentials</h1>
-    </div>
+    <header class="site-header">
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search products..."
-            onkeyup="searchProducts()">
-    </div>
+        <div class="header-main">
 
-   <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-
-
-<nav id="mainNav">
-    <a href="index.html">Home</a>
-    <a href="lip-products.html">Lip Products</a>
-    <a href="shades.html">Shades</a>
-    <a href="skincare.html">Glow Essentials</a>
-    <a href="nails.html">Press-On Nails</a>
-    <a href="accessories.html">Lifestyle</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
-</nav> 
-
-</header>
-
-
-<section class="hero">
-
-    <h2>Everything Beauty,<br>Just for You.</h2>
-
-    <p>
-        Discover premium beauty essentials carefully selected to help you feel confident, stylish and beautiful every single day.
-    </p>
-
-    <div class="hero-buttons">
-
-        <a href="lip-products.html">
-            <button>Shop Now</button>
-        </a>
-
-        <a href="accessories.html">
-            <button class="secondary-btn">Browse Collection</button>
-        </a>
-
-    </div>
-
-</section>
-
-
-<section class="stats">
-
-    <div class="stat-box">
-        <h3>200+</h3>
-        <p>Beauty Products</p>
-    </div>
-
-    <div class="stat-box">
-        <h3>5</h3>
-        <p>Collections</p>
-    </div>
-
-    <div class="stat-box">
-        <h3>Nationwide</h3>
-        <p>Delivery</p>
-    </div>
-
-    <div class="stat-box">
-        <h3>Quality</h3>
-        <p>Guaranteed</p>
-    </div>
-
-</section>
-
-
-<section class="categories" id="categories">
-
-    <h2>Shop by Category</h2>
-
-    <div class="category-grid">
-
-        <a href="lip-products.html" class="category-card">
-            <h3>💄 Plush Pout Lip Products</h3>
-            <p>Glossy. Glamorous. Unapologetic.</p>
-        </a>
-
-        <a href="shades.html" class="category-card">
-            <h3>🕶️ Plush Pout Luxe Shades</h3>
-            <p>Luxury Meets Affordability.</p>
-        </a>
-
-        <a href="skincare.html" class="category-card">
-            <h3>🧴 Glow Essentials</h3>
-            <p>Glow from within.</p>
-        </a>
-
-        <a href="nails.html" class="category-card">
-            <h3>💅 Press-On Nails</h3>
-            <p>Salon beauty in minutes.</p>
-        </a>
-
-        <a href="accessories.html" class="category-card">
-            <h3>🎀 Lifestyle Accessories</h3>
-            <p>Complete your look.</p>
-        </a>
-
-    </div>
-
-</section>
-
-
-<section class="about">
-
-    <h2>Why Choose Tommy's Beauty Essentials?</h2>
-
-    <div class="about-container">
-
-        <div class="about-box">
-            <h3>✨ Carefully Curated Products</h3>
-            <p>Every product is carefully selected to give you quality, beauty and confidence.</p>
-        </div>
-
-        <div class="about-box">
-            <h3>💖 Affordable Luxury</h3>
-            <p>Luxury beauty products at prices you'll love.</p>
-        </div>
-
-        <div class="about-box">
-            <h3>🚚 Nationwide Delivery</h3>
-            <p>Fast, reliable delivery across Nigeria.</p>
-        </div>
-
-        <div class="about-box">
-            <h3>⭐ Trusted Quality</h3>
-            <p>Products chosen with care to give you the best experience.</p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="products">
-
-    <h2>Customer Favourites</h2>
-
-    <div class="product-container">
-
-        <div class="product-card">
-
-            <img src="images/barenude.jpeg" alt="Bare Nude Lip Gloss">
-
-            <h3>Bare Nude Lip Gloss</h3>
-
-            <p class="price">₦2,500</p>
-
-            <p>Glossy. Glamorous. Unapologetic.</p>
-
-            <a href="lip-products.html">
-                <button>Shop Now</button>
+            <a href="index.html" class="brand-name">
+                Tommy's Beauty Essentials
             </a>
 
+            <div class="header-actions">
+
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search products..."
+                        onkeyup="searchProducts()"
+                    >
+                </div>
+
+                <a href="cart.html" class="header-cart" id="cart-link">
+                    🛒 <span>Cart (0)</span>
+                </a>
+
+                <button
+                    class="mobile-menu-btn"
+                    onclick="toggleMenu()"
+                    aria-label="Open navigation menu"
+                >
+                    ☰
+                </button>
+
+            </div>
+
         </div>
 
+    </header>
 
-        <div class="product-card">
 
-            <img src="images/cartier-luxe-shades.jpeg" alt="Cartier Luxe Shades">
+    <!-- =====================================================
+         SIDE NAVIGATION
+    ====================================================== -->
 
-            <h3>Cartier Luxe Shades</h3>
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
 
-            <p class="price">₦5,000</p>
+    <aside id="mainNav" class="side-menu">
 
-            <p>Luxury meets affordability.</p>
+        <div class="side-menu-header">
 
-            <button onclick="location.href='shades.html'">
-                View Collection
+            <h2>TBE</h2>
+
+            <button
+                class="close-menu-btn"
+                onclick="toggleMenu()"
+                aria-label="Close navigation menu"
+            >
+                ×
             </button>
 
         </div>
 
+        <nav class="side-menu-links">
 
-        <div class="product-card">
+            <a href="index.html">Home</a>
+            <a href="lip-products.html">Lip Products</a>
+            <a href="shades.html">Shades</a>
+            <a href="skincare.html">Glow Essentials</a>
+            <a href="nails.html">Press-On Nails</a>
+            <a href="accessories.html">Lifestyle</a>
+            <a href="contact.html">Contact</a>
 
-            <img src="images/ocean-like-pressons.jpeg" alt="Ocean Like Press-On Nails">
+            <a href="cart.html" class="side-cart-link">
+                🛒 Cart
+            </a>
 
-            <h3>Ocean Like Press-On Nails</h3>
+        </nav>
 
-            <p class="price">₦2,800</p>
+    </aside>
 
-            <p>Salon beauty in minutes.</p>
 
-            <a href="nails.html">
-                <button>Shop Now</button>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <h2>
+            Everything Beauty,
+            <br>
+            Just for You.
+        </h2>
+
+        <p>
+            Discover premium beauty essentials carefully selected
+            to help you feel confident, stylish and beautiful
+            every single day.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="lip-products.html">
+                <button>
+                    Shop Now
+                </button>
+            </a>
+
+            <a href="accessories.html">
+                <button class="secondary-btn">
+                    Browse Collection
+                </button>
             </a>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<section class="newsletter">
+    <!-- =====================================================
+         BRAND STATS
+    ====================================================== -->
 
-    <h2>Stay Beautiful ✨</h2>
+    <section class="stats">
 
-    <p>
-        Be the first to know about new arrivals, exclusive offers and exciting collections.
-    </p>
+        <div class="stat-box">
+            <h3>200+</h3>
+            <p>Beauty Products</p>
+        </div>
 
-    <button onclick="location.href='https://wa.me/2349115180053'">
-        Join Our WhatsApp
-    </button>
+        <div class="stat-box">
+            <h3>5</h3>
+            <p>Collections</p>
+        </div>
 
-</section>
+        <div class="stat-box">
+            <h3>Nationwide</h3>
+            <p>Delivery</p>
+        </div>
 
+        <div class="stat-box">
+            <h3>Quality</h3>
+            <p>Guaranteed</p>
+        </div>
 
-<footer>
-
-    <h2>Tommy's Beauty Essentials</h2>
-
-    <p>Everything Beauty, Just for You.</p>
-
-    <p>📍 Ogun State, Nigeria</p>
-
-    <p>📞 WhatsApp: 09115180053</p>
-
-    <p>&copy; 2026 Tommy's Beauty Essentials. All Rights Reserved.</p>
-
-</footer>
-
-
-<a
-    href="https://wa.me/2349115180053"
-    class="whatsapp-btn"
-    target="_blank"
-    aria-label="Chat with us on WhatsApp">
-    💬
-</a>
+    </section>
 
 
-<script src="script.js"></script>
+    <!-- =====================================================
+         SHOP BY CATEGORY
+    ====================================================== -->
+
+    <section class="categories" id="categories">
+
+        <h2>Shop by Category</h2>
+
+        <div class="category-grid">
+
+            <a href="lip-products.html" class="category-card">
+
+                <h3>💄 Plush Pout Lip Products</h3>
+
+                <p>
+                    Glossy. Glamorous. Unapologetic.
+                </p>
+
+            </a>
+
+
+            <a href="shades.html" class="category-card">
+
+                <h3>🕶️ Plush Pout Luxe Shades</h3>
+
+                <p>
+                    Luxury Meets Affordability.
+                </p>
+
+            </a>
+
+
+            <a href="skincare.html" class="category-card">
+
+                <h3>🧴 Glow Essentials</h3>
+
+                <p>
+                    Glow from within.
+                </p>
+
+            </a>
+
+
+            <a href="nails.html" class="category-card">
+
+                <h3>💅 Press-On Nails</h3>
+
+                <p>
+                    Salon beauty in minutes.
+                </p>
+
+            </a>
+
+
+            <a href="accessories.html" class="category-card">
+
+                <h3>🎀 Lifestyle Accessories</h3>
+
+                <p>
+                    Complete your look.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHY TOMMY'S
+    ====================================================== -->
+
+    <section class="about">
+
+        <h2>
+            Why Choose Tommy's Beauty Essentials?
+        </h2>
+
+        <div class="about-container">
+
+            <div class="about-box">
+
+                <h3>
+                    ✨ Carefully Curated Products
+                </h3>
+
+                <p>
+                    Every product is carefully selected to give
+                    you quality, beauty and confidence.
+                </p>
+
+            </div>
+
+
+            <div class="about-box">
+
+                <h3>
+                    💖 Affordable Luxury
+                </h3>
+
+                <p>
+                    Luxury beauty products at prices you'll love.
+                </p>
+
+            </div>
+
+
+            <div class="about-box">
+
+                <h3>
+                    🚚 Nationwide Delivery
+                </h3>
+
+                <p>
+                    Fast, reliable delivery across Nigeria.
+                </p>
+
+            </div>
+
+
+            <div class="about-box">
+
+                <h3>
+                    ⭐ Trusted Quality
+                </h3>
+
+                <p>
+                    Products chosen with care to give you
+                    the best experience.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CUSTOMER FAVOURITES
+         Kept simple — no redesign
+    ====================================================== -->
+
+    <section class="products">
+
+        <h2>Customer Favourites</h2>
+
+        <div class="product-container">
+
+
+            <!-- BARE NUDE -->
+
+            <div class="product-card">
+
+                <img
+                    src="images/barenude.jpeg"
+                    alt="Bare Nude Lip Gloss"
+                >
+
+                <h3>
+                    Bare Nude Lip Gloss
+                </h3>
+
+                <p class="price">
+                    ₦2,500
+                </p>
+
+                <p class="product-description">
+                    Glossy. Glamorous. Unapologetic.
+                </p>
+
+                <a href="lip-products.html">
+                    <button>
+                        Shop Now
+                    </button>
+                </a>
+
+            </div>
+
+
+            <!-- CARTIER LUXE -->
+
+            <div class="product-card">
+
+                <img
+                    src="images/cartier-luxe-shades.jpeg"
+                    alt="Cartier Luxe Shades"
+                >
+
+                <h3>
+                    Cartier Luxe Shades
+                </h3>
+
+                <p class="price">
+                    ₦5,000
+                </p>
+
+                <p class="product-description">
+                    Luxury meets affordability.
+                </p>
+
+                <a href="shades.html">
+                    <button>
+                        View Collection
+                    </button>
+                </a>
+
+            </div>
+
+
+            <!-- OCEAN LIKE -->
+
+            <div class="product-card">
+
+                <img
+                    src="images/ocean-like-pressons.jpeg"
+                    alt="Ocean Like Press-On Nails"
+                >
+
+                <h3>
+                    Ocean Like Press-On Nails
+                </h3>
+
+                <p class="price">
+                    ₦2,800
+                </p>
+
+                <p class="product-description">
+                    Salon beauty in minutes.
+                </p>
+
+                <a href="nails.html">
+                    <button>
+                        Shop Now
+                    </button>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHATSAPP / STAY BEAUTIFUL
+    ====================================================== -->
+
+    <section class="newsletter">
+
+        <h2>
+            Stay Beautiful ✨
+        </h2>
+
+        <p>
+            Be the first to know about new arrivals,
+            exclusive offers and exciting collections.
+        </p>
+
+        <button
+            onclick="window.open('https://wa.me/2349115180053', '_blank')"
+        >
+            Join Our WhatsApp
+        </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <h2>
+            Tommy's Beauty Essentials
+        </h2>
+
+        <p>
+            Everything Beauty, Just for You.
+        </p>
+
+        <p>
+            📍 Ogun State, Nigeria
+        </p>
+
+        <p>
+            📞 WhatsApp:
+            <a href="https://wa.me/2349115180053" target="_blank">
+                09115180053
+            </a>
+        </p>
+
+        <p>
+            &copy; 2026 Tommy's Beauty Essentials.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         FLOATING WHATSAPP
+    ====================================================== -->
+
+    <a
+        href="https://wa.me/2349115180053"
+        class="whatsapp-btn"
+        target="_blank"
+        aria-label="Chat with us on WhatsApp"
+    >
+        💬
+    </a>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
