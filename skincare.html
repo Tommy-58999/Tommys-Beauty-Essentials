@@ -11,27 +11,83 @@
 <body>
 
 <header>
-    <h1>Tommy's Beauty Essentials</h1>
-    <div class="search-box">
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        onkeyup="searchProducts()">
-</div>
-   <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <header class="site-header">
 
-    <nav id="mainNav">
+    <div class="header-main">
+
+        <a href="index.html" class="brand-name">
+            Tommy's Beauty Essentials
+        </a>
+
+        <div class="header-actions">
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                    onkeyup="searchProducts()">
+            </div>
+
+            <a href="cart.html" class="header-cart" id="cart-link">
+                🛒 <span>Cart (0)</span>
+            </a>
+
+            <button
+                class="mobile-menu-btn"
+                onclick="toggleMenu()"
+                aria-label="Open navigation menu">
+                ☰
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- SIDE NAVIGATION -->
+
+<div class="menu-overlay" onclick="toggleMenu()"></div>
+
+<aside id="mainNav" class="side-menu">
+
+    <div class="side-menu-header">
+
+        <h2>TBE</h2>
+
+        <button
+            class="close-menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Close navigation menu">
+            ×
+        </button>
+
+    </div>
+
+    <nav class="side-menu-links">
+
         <a href="index.html">Home</a>
+
         <a href="lip-products.html">Lip Products</a>
+
         <a href="shades.html">Shades</a>
+
         <a href="skincare.html">Glow Essentials</a>
+
         <a href="nails.html">Press-On Nails</a>
+
         <a href="accessories.html">Lifestyle</a>
+
         <a href="contact.html">Contact</a>
-        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
-</nav>
+
+        <a href="cart.html" class="side-cart-link">
+            🛒 Cart
+        </a>
+
     </nav>
+
+</aside>
 </header>
 
 <section class="collection">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plush Pout Luxe Shades | Tommy's Beauty Essentials</title>
+    <title>Plush Pout Luxe | Tommy's Beauty Essentials</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpeg" href="images/favicon.jpeg">
@@ -13,31 +13,87 @@
 <body>
 
 <header>
-    <h1>Tommy's Beauty Essentials</h1>
-    <div class="search-box">
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        onkeyup="searchProducts()">
-</div>
-   <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <header class="site-header">
 
-    <nav id="mainNav">
+    <div class="header-main">
+
+        <a href="index.html" class="brand-name">
+            Tommy's Beauty Essentials
+        </a>
+
+        <div class="header-actions">
+
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products..."
+                    onkeyup="searchProducts()">
+            </div>
+
+            <a href="cart.html" class="header-cart" id="cart-link">
+                🛒 <span>Cart (0)</span>
+            </a>
+
+            <button
+                class="mobile-menu-btn"
+                onclick="toggleMenu()"
+                aria-label="Open navigation menu">
+                ☰
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- SIDE NAVIGATION -->
+
+<div class="menu-overlay" onclick="toggleMenu()"></div>
+
+<aside id="mainNav" class="side-menu">
+
+    <div class="side-menu-header">
+
+        <h2>TBE</h2>
+
+        <button
+            class="close-menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Close navigation menu">
+            ×
+        </button>
+
+    </div>
+
+    <nav class="side-menu-links">
+
         <a href="index.html">Home</a>
+
         <a href="lip-products.html">Lip Products</a>
+
         <a href="shades.html">Shades</a>
+
         <a href="skincare.html">Glow Essentials</a>
+
         <a href="nails.html">Press-On Nails</a>
+
         <a href="accessories.html">Lifestyle</a>
+
         <a href="contact.html">Contact</a>
-        <a href="cart.html" id="cart-link">🛒 Cart (0)</a>
-</nav>
+
+        <a href="cart.html" class="side-cart-link">
+            🛒 Cart
+        </a>
+
     </nav>
+
+</aside>
 </header>
 
 <section class="page-header">
-    <h2>Plush Pout Luxe Shades</h2>
+    <h2>Plush Pout Luxe</h2>
 
     <p>
         Elevate every outfit with stylish, high-quality shades designed to make every look bold, classy and unforgettable.
@@ -181,6 +237,18 @@
     <button onclick="addToCart('Velocity Shield Shades', 6000)">Add to Cart</button>
 
 </div>
+    <div class="product-card">
+        <img src="images/cool minimalist shade.jpeg" alt="Minimalist Rimless Shades">
+
+        <h3>Minimalist Rimless Shades</h3>
+
+    <p class="price">₦3,500</p>
+    <p class="product-description">
+Sleek, ligtweight and effortlessly stylish. Designed with a minimalist rimless frame, these shades are easy to carry and comfortable for everyday wear.
+    </p>
+    <button onclick="addToCart('Minimalist Rimless Shades', 3500)">Add to Cart</button>
+        
+    </div>
     </div>
 </section>
 <a href="https://wa.me/2349115180053"
